@@ -1,26 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-const now = new Date()
-const nowStr = now.toLocaleTimeString()
+const radiusInit = Math.round(Math.random() * 10)
 
-let timeStr = nowStr
-const timeStrRef = ref(nowStr)
+const PI = ref(3.14)
+const radius = ref(radiusInit)
+const area = computed(() => radius.value * radius.value * PI.value)
 
-function changeTime(): void {
-  const newTime = new Date()
-  const newTimeStr = newTime.toLocaleTimeString()
-
-  timeStr = newTimeStr
-  timeStrRef.value = newTimeStr
-}
-
-setInterval(changeTime, 1000)
+setInterval(() => {
+  radius.value = Math.round(Math.random() * 10)
+}, 1000)
 </script>
 
 <template>
   <div>
-    <p>timeStr: {{ timeStr }}</p>
-    <p>timeStrRef: {{ timeStrRef }}</p>
+    <p>半径{{ radius }}の円の面積を円周率{{ PI }}で計算すると{{ area }}</p>
   </div>
 </template>
